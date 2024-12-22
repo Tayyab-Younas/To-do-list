@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Todo from './component/todo';
-
+import { ToastContainer, toast } from "react-toastify";
 function App() {
   const [todo, setTodos] = useState([]); // state to store todo items
   const [input, setInputs] = useState(''); 
@@ -10,7 +10,7 @@ function App() {
     if (input) {
       setTodos([...todo, { id: Date.now(), text:input , complete: false}])
       setInputs('');// Clear the input field
-
+      toast.success('To-do item has been added')
     }
   };
 
@@ -21,6 +21,7 @@ function App() {
         item.id === id ? {...item , complete: !item.complete }: item
       )
     );
+    toast.success('The task has been completed')
   };
 
   const deleteTodo = (id) => {
@@ -29,6 +30,7 @@ function App() {
         (item) => item.id!== id
       )
     );
+    toast.success('The task has been removed')
   };
 
 
@@ -55,6 +57,7 @@ function App() {
           deleteTodo={deleteTodo}
         />
       ))}
+      <ToastContainer />
     </div>
     
   )
